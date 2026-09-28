@@ -5,14 +5,17 @@ project:
 website:
   title: "davinaaliu.github.io"
   navbar:
-    left:
+    right:
       - href: docs/index.html
         text: Home
-      - docs/about.html
+
+      - href: docs/about.html
+        text: About
+
       - text: Data Viz
         menu:
-        - text: Taylor Swift TidyTuesday Analysis
-        - href: docs/taylorswift.html
+          - text: Taylor Swift TidyTuesday Analysis
+            href: docs/taylorswift.html
       
 
 format:
