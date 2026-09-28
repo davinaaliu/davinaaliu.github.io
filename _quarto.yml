@@ -5,15 +5,15 @@ project:
 website:
   title: "davinaaliu.github.io"
   navbar:
-  right:
-    - href: index.qmd
-      text: Home
-    - href: about.qmd
-      text: About
-    - text: Data Viz
-      menu:
+    right:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - text: Data Viz
+        menu:
         - text: Taylor Swift TidyTuesday Analysis
-          href: taylorswift.qmd
+        - href: taylorswift.qmd
       
 
 format:
