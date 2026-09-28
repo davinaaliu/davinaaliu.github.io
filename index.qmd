@@ -2,6 +2,4 @@
 title: "Davina Liu"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+My name is Davina Liu and I'm a current sophomore at Pomona College. My major is Applied Math and my minor is Data Science. I love creative writing (fiction and poetry), journaling/scrapbooking, and playing the piano.
