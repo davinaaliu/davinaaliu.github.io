@@ -9,8 +9,10 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - href: taylorswift.qmd
-        text: Taylor Swift TidyTuesday Analysis
+      - text: Data Viz
+        menu:
+        - text: Taylor Swift TidyTuesday Analysis
+        - href: taylorswift.qmd
       
 
 format:
