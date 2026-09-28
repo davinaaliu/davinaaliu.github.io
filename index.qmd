@@ -1,6 +1,6 @@
 ---
 title: "Davina Liu"
-image: downloads/IMG_2430.jpg
+image: IMG_2430.jpg
 toc: false
 about: 
   template: jolla
