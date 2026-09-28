@@ -6,13 +6,13 @@ website:
   title: "davinaaliu.github.io"
   navbar:
     left:
-      - href: docs/index.html
+      - href: index.qmd
         text: Home
-      - docs/about.html
+      - about.qmd
       - text: Data Viz
         menu:
         - text: Taylor Swift TidyTuesday Analysis
-        - href: docs/taylorswift.html
+        - href: taylorswift.qmd
       
 
 format:
