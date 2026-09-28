@@ -1,0 +1,9 @@
+---
+title: "Taylor Swift"
+description: |
+  Analysis of Taylor Swift data from TidyTuesday
+author: Davina Liu
+date: September 28, 2026
+format: html
+---
+
