@@ -17,3 +17,7 @@ taylor_all_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatas
 taylor_albums <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2023/2023-10-17/taylor_albums.csv')
 ```
 
+```{r}
+ggplot(taylor_all_songs, aes(x = album_name, y = liveness)) +
+    geom_point()
+```
