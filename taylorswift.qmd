@@ -4,7 +4,11 @@ description: |
   Analysis of Taylor Swift data from TidyTuesday
 author: Davina Liu
 date: September 28, 2026
-format: html
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
 ---
 
 ```{r}
@@ -18,6 +22,14 @@ taylor_albums <- readr::read_csv('https://raw.githubusercontent.com/rfordatascie
 ```
 
 ```{r}
-ggplot(taylor_all_songs, aes(x = liveness, y = album_name)) +
-    geom_point()
+taylor_all_songs |>
+    filter(!is.na(album_name), !is.na(duration_ms)) |>
+    mutate(minutes = duration_ms / 60000) |>
+    ggplot(aes(x = minutes, y = album_name)) +
+    geom_boxplot() +
+    labs(
+    y = "Song length (minutes)",
+    title = "Taylor Swift song length \n by album",
+    caption = "Source: TidyTuesday 2023-10-17 (taylor R package)"
+  )
 ```
