@@ -14,7 +14,7 @@ website:
 
       - text: Data Viz
         menu:
-          - text: Taylor Swift TidyTuesday Analysis
+          - text: Taylor Swift
             href: taylorswift.qmd
       
 
