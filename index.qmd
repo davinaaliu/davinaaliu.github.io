@@ -11,7 +11,7 @@ about:
       href: https://www.linkedin.com/in/davinaliu06/
       target: _blank
     - text: Email
-      href: davinaaliu555@gmail.com
+      href: mailto:davinaaliu555@gmail.com
 ---
 
 My name is Davina Liu and I'm a current sophomore at Pomona College. My major is Applied Math and my minor is Data Science. I love creative writing (fiction and poetry), journaling/scrapbooking, and playing the piano.
