@@ -9,6 +9,9 @@ format:
     code-fold: true
     code-summary: "Show code"
     code-tools: true
+execute: 
+  message: false
+  warning: false
 ---
 
 ```{r}
