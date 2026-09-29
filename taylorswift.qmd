@@ -18,6 +18,6 @@ taylor_albums <- readr::read_csv('https://raw.githubusercontent.com/rfordatascie
 ```
 
 ```{r}
-ggplot(taylor_all_songs, aes(x = album_name, y = liveness)) +
+ggplot(taylor_all_songs, aes(x = liveness, y = album_name)) +
     geom_point()
 ```
