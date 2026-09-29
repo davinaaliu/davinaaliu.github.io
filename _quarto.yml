@@ -14,6 +14,8 @@ website:
         menu:
           - text: Taylor Swift
             href: taylorswift.qmd
+          - text: Friends
+            href: friends.qmd
       
 
 format:

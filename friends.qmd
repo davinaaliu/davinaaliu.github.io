@@ -1,0 +1,13 @@
+---
+title: "Friends"
+description: |
+  Friends data from TidyTuesday
+author: Davina Liu
+date: September 28, 2026
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+---
+
