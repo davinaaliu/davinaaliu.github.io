@@ -29,7 +29,8 @@ taylor_all_songs |>
     geom_boxplot() +
     labs(
     y = "Song length (minutes)",
-    title = "Taylor Swift song length \n by album",
+    title = "Taylor Swift song length by album",
     caption = "Source: TidyTuesday 2023-10-17 (taylor R package)"
   )
 ```
+

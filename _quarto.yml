@@ -8,10 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-
       - href: about.qmd
         text: About
-
       - text: Data Viz
         menu:
           - text: Taylor Swift
