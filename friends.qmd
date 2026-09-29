@@ -20,3 +20,41 @@ friends <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 friends_emotions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-09-08/friends_emotions.csv')
 friends_info <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-09-08/friends_info.csv')
 ```
+
+```{r}
+
+main_cast <- c("Monica Geller", "Rachel Green", "Phoebe Buffay", "Chandler Bing", "Joey Tribbiani", "Ross Geller")
+
+friends |>
+  filter(speaker %in% main_cast) |>
+  count(season, episode, speaker, name = "n_lines") |>
+  left_join(friends_info, by = c("season", "episode")) |>
+  filter(!is.na(imdb_rating)) |>
+  ggplot(aes(x = n_lines, y = imdb_rating)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~speaker) +
+  labs(
+    title = "Friends: lines per episode vs. IMDb rating",
+    x = "Lines spoken in the episode",
+    y = "IMDb rating",
+    caption = "Source: TidyTuesday 2020-09-08 (friends R package)"
+  )
+```
+
+```{r}
+friends |>
+  filter(speaker %in% main_cast) |>
+  count(season, episode, speaker, name = "n_lines") |>
+  left_join(friends_info, by = c("season", "episode")) |>
+  filter(!is.na(imdb_rating)) |>
+  group_by(speaker) |>
+  summarize(correlation = cor(n_lines, imdb_rating))
+```
+
+This plot shows how many lines each main character in Friends speak in an episode compared with that episode's IMDb rating. Each point is equal to one episode. Ross shows the strongest positive relationship of 0.23, while Chandler has the lowest correlation of 0.02. For all the characters though, the trend line is nearly flat, which suggests the number of lines is not strongly related to rating. The points are widely spread around every line, so line count alone doesn't explain much of the variation in ratings.
+
+
+**Data source:** [TidyTuesday 2020-09-08: Friends](https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-09-08)
+
+**Original source:** Hvitfeldt E. *friends: The Entire Transcript from Friends in Tidy Format.* R package, <https://github.com/EmilHvitfeldt/friends>. The episode information came from Wikipedia and IMDb, and the transcripts come from the Emory NLP character-mining project.
