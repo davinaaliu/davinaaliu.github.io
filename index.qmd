@@ -10,6 +10,8 @@ about:
     - text: LinkedIn
       href: https://www.linkedin.com/in/davinaliu06/
       target: _blank
+    - text: Github
+      href: https://github.com/davinaaliu/davinaaliu.github.io 
     - text: Email
       href: mailto:davinaaliu555@gmail.com
 ---
