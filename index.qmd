@@ -12,6 +12,7 @@ about:
       target: _blank
     - text: Github
       href: https://github.com/davinaaliu/davinaaliu.github.io 
+      target: _blank
     - text: Email
       href: mailto:davinaaliu555@gmail.com
 ---
