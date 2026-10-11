@@ -3,13 +3,11 @@ project:
   output-dir: docs
 
 website:
-  title: "davinaaliu.github.io"
+  title: "Davina Liu"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: About
       - text: Data Viz
         menu:
           - text: Taylor Swift
@@ -21,7 +19,7 @@ website:
 format:
   html:
     theme:
-      - Quartz
+      - Solar
       - brand
     css: styles.css
     toc: true
