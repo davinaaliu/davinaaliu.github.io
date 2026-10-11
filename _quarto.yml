@@ -14,6 +14,8 @@ website:
             href: taylorswift.qmd
           - text: Friends
             href: friends.qmd
+          - text: Dickinson Poems
+            href: dickinsonpoems.qmd
       
 
 format:
