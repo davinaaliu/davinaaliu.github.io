@@ -18,11 +18,18 @@ execute:
 library(tidyverse)
 
 folder <- system.file("extdata", package = "DickinsonPoems")
-files <- list.files(folder, pattern = "gutenberg", full.names = TRUE)
+files <- list.files(folder, pattern = "gutenberg")
 
-dickinson <- tibble(file = files) |>
-  mutate(line = map(file, readLines)) |>
-  unnest(line) |>
+all_lines <- c()
+all_files <- c()
+
+for (name in files) {
+  lines <- readLines(paste(folder, name, sep = "/"))
+  all_lines <- c(all_lines, lines)
+  all_files <- c(all_files, rep(name, length(lines)))
+}
+
+dickinson <- tibble(file = all_files, line = all_lines) |>
   filter(str_detect(line, "[A-Za-z]")) |>
   mutate(series = str_extract(file, "(?<=gutenberg)[0-9]"))
 ```
