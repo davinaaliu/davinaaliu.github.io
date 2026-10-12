@@ -16,7 +16,7 @@ website:
             href: friends.qmd
           - text: Dickinson Poems
             href: dickinsonpoems.qmd
-      
+    
 
 format:
   html:
