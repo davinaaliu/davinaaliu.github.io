@@ -1,16 +1,135 @@
 ---
-title: "Broadway Musicals"
-description: |
-  Simulation of Broadway Musicals data from TidyTuesday
-author: Davina Liu
-date: October 11, 2026
+title: "Project 3: Do Holiday Weeks Raise Broadway Ticket Prices?"
+author: "Davina Liu"
+date: today
 format:
   html:
     code-fold: true
-    code-summary: "Show code"
-    code-tools: true
-execute: 
-  message: false
+    toc: true
+execute:
   warning: false
+  message: false
 ---
 
+## What I plan to do
+
+In this project I want to see if Broadway shows charge more for tickets during the holiday weeks. I'm looking at the 2018-19 season, and I'm calling the weeks ending December 23 and December 30 the "holiday weeks." First I'll find the difference in average ticket price between holiday weeks and all the other weeks. Then I'll shuffle the week labels 5,000 times to see what differences look like when nothing is going on, and compare that to what I actually saw.
+
+## The data
+
+The data is from TidyTuesday (week 18 of 2020): <https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-04-28>. It originally comes from Playbill (<https://www.playbill.com/grosses>), which posts weekly box office numbers for theatres in The Broadway League. Alex Cookson collected and cleaned it for TidyTuesday.
+
+Each row is one show in one week. These are the variables I use:
+
+- `week_ending`: the Sunday that ends the week
+- `avg_ticket_price`: the average price of the tickets sold that week (in dollars)
+- `holiday`: a variable I made. It says "Holiday" if the week ended on 2018-12-23 or 2018-12-30, and "Other" for every other week
+
+I think this is interesting because the time between Christmas and New Year's is really busy in New York, so theatres might raise prices. I only used one season so that inflation doesn't mess up the comparison.
+
+My hypotheses are:
+
+- Null hypothesis: The mean average ticket price is the same in holiday weeks and other weeks.
+- Alternative hypothesis: The mean average ticket price is higher in holiday weeks.
+
+```{r}
+library(tidyverse)
+
+grosses <- read_csv(
+  "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-04-28/grosses.csv",
+  guess_max = 40000
+)
+
+season <- grosses |>
+  filter(week_ending >= "2018-06-03", week_ending <= "2019-06-02") |>
+  filter(!is.na(avg_ticket_price)) |>
+  mutate(holiday = if_else(week_ending == "2018-12-23" | week_ending == "2018-12-30",
+                           "Holiday", "Other"))
+
+season |>
+  count(holiday)
+```
+
+This table shows how many show-weeks are in each group. There are way more "Other" show-weeks than "Holiday" ones because only two weeks count as holiday weeks.
+
+## Looking at the original data
+
+```{r}
+ggplot(season, aes(x = holiday, y = avg_ticket_price, fill = holiday)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Average Ticket Price in Holiday Weeks vs. Other Weeks",
+    subtitle = "Broadway 2018-19 season, each observation is one show in one week",
+    x = "Type of week",
+    y = "Average ticket price (dollars)",
+    caption = "Source: Playbill / The Broadway League via TidyTuesday"
+  )
+```
+
+This boxplot compares ticket prices in the holiday weeks to the other weeks. I can look at the middle line of each box to see if holiday prices are higher. There's also a lot of spread in both groups, because some shows are much more expensive than others. So I can't tell from the plot alone if the difference is real, which is why I need the simulation.
+
+Here is the actual difference in the average prices:
+
+```{r}
+group_means <- season |>
+  group_by(holiday) |>
+  summarize(mean_price = mean(avg_ticket_price)) |>
+  pull(mean_price)
+
+group_means
+
+obs_diff <- group_means[1] - group_means[2]
+obs_diff
+```
+
+R lists the groups alphabetically, so Holiday comes first, which means this is holiday minus other. The average ticket price in holiday weeks was `r round(obs_diff, 2)` dollars different from other weeks.
+
+## The simulation
+
+My function `shuffle_diff()` randomly mixes up the "Holiday" and "Other" labels, then finds the difference in average price between the two new groups. If nothing is going on, the labels don't matter, so shuffling them shows what differences happen just by chance. One shuffle isn't enough to tell, so I use `map_dbl()` to do it 5,000 times and save all the differences.
+
+```{r}
+set.seed(2026)
+
+shuffle_diff <- function(data) {
+  means <- data |>
+    mutate(holiday = sample(holiday)) |>
+    group_by(holiday) |>
+    summarize(mean_price = mean(avg_ticket_price)) |>
+    pull(mean_price)
+
+  means[1] - means[2]
+}
+
+null_diffs <- map_dbl(1:5000, ~ shuffle_diff(season))
+
+p_value <- mean(null_diffs >= obs_diff)
+p_value
+```
+
+The p-value is the proportion of shuffled differences that were as big as (or bigger than) my real difference. Mine is **`r round(p_value, 4)`**.
+
+```{r}
+ggplot(tibble(diff = null_diffs), aes(x = diff)) +
+  geom_histogram(bins = 40, fill = "grey70", color = "white") +
+  geom_vline(xintercept = obs_diff, color = "red", linewidth = 1) +
+  labs(
+    title = "Differences in Average Ticket Price From 5,000 Shuffles",
+    subtitle = "Red line = the difference I actually observed",
+    x = "Difference in average ticket price, holiday minus other (dollars)",
+    y = "Number of shuffles",
+    caption = "Source: Playbill / The Broadway League via TidyTuesday"
+  )
+```
+
+This histogram shows the differences I got from shuffling the labels. It's centered around zero, which makes sense since the shuffled labels have nothing to do with price. The red line is my real difference. If the red line is far out in the right tail, it's unlikely to be just chance.
+
+## Conclusion
+
+*(Rewrite this after you render and see your real numbers, then delete this line.)*
+
+My observed difference was `r round(obs_diff, 2)` dollars and my p-value was `r round(p_value, 4)`. If the p-value is small (like under 0.05), that's evidence that holiday weeks really do have higher ticket prices. If it's big, a difference this size could easily happen by chance. This only applies to show-weeks in the 2018-19 Broadway season. One problem is that the same shows show up in lots of weeks, so the data points aren't totally independent, and I only looked at one season.
+
+## What I did
+
+I used the Broadway grosses data to test if ticket prices are higher during the holiday weeks. I wrote a function called `shuffle_diff()` that shuffles the week labels and finds the difference in average price. I used `map_dbl()` to run it 5,000 times, then compared my real difference to the shuffled ones using a histogram and a p-value.
