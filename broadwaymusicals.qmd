@@ -1,5 +1,5 @@
 ---
-title: "Project 3: Do Holiday Weeks Raise Broadway Ticket Prices?"
+title: "Broadway Musicals"
 author: "Davina Liu"
 date: today
 format:
