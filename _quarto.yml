@@ -16,6 +16,8 @@ website:
             href: friends.qmd
           - text: Dickinson Poems
             href: dickinsonpoems.qmd
+          - text: Broadway Musicals
+            href: broadwaymusicals.qmd
     
 
 format:
