@@ -18,6 +18,8 @@ website:
             href: dickinsonpoems.qmd
           - text: Broadway Musical
             href: broadwaymusicals.qmd
+          - text: Forbes
+            href: forbes.qmd
     
 
 format:
