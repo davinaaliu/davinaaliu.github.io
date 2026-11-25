@@ -1,5 +1,53 @@
 ---
 title: "Forbes"
-format: html
+author: Davina Liu
+date: November 24, 2026
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+execute: 
+  message: false
+  warning: false
 ---
 
+## The scenario
+
+In 2006, Netflix launched a public contest, the Netflix Prize, offering $1 million to any team that could improve its movie recommendation algorithm by 10%. To make this possible, it released ratings from roughly 500,000 subscribers, with names removed and each person replaced by a number (Narayanan & Shmatikov, 2008).
+
+The data science component is the ratings dataset itself, used to train prediction models, along with the re-identification attack that followed. Arvind Narayanan and Vitaly Shmatikov showed that knowing as few as five to ten of a person's movie ratings was often enough to find their record, and they confirmed this by matching the "anonymous" ratings to public IMDb reviews posted under real names (Narayanan & Shmatikov, 2008). Kalev Leetaru (2016) calls this "mosaicking": datasets that look harmless alone can identify people once combined.
+
+The ethical dilemma is that Netflix made the private viewing histories of hundreds of thousands of people public, assuming that deleting names was protection enough. Ratings can reveal sensitive details such as apparent political preferences (Narayanan & Shmatikov, 2008), so the question is how far the benefits of open data and public competitions should outweigh the privacy of the people behind the data.
+
+## Four questions from the assignment
+
+**Is the data identifiable, and is anonymity guaranteed?**
+
+Anonymity was not guaranteed, and the reason is structural. Netflix's data are sparse and high-dimensional, meaning there are so many possible movies that any one person's pattern of ratings works much like a fingerprint. Narayanan and Shmatikov argue that standard protections such as k-anonymity break down on data of this kind, and that their method still works when the data have been perturbed, when only a subset has been released, or when the attacker's background knowledge contains errors (Narayanan & Shmatikov, 2008). They also stress that their analysis relied only on public data, without access to Netflix's internal records (Narayanan & Shmatikov, 2008). Leetaru's contribution is to show that Netflix was no isolated slip. Dataset after dataset was released as anonymous and later re-identified, which points to a flaw in the method and not merely in one company's execution (Leetaru, 2016). Removing the names gave the data the appearance of safety without the substance.
+
+**What was the consent structure, and can anyone consent to uses that have not been foreseen?**
+
+Neither of my sources describes how subscribers were asked for permission, and I did not review Netflix's privacy policy, so I cannot say what they actually agreed to. My own reading is that people rated movies in order to use a service, not to take part in a public data mining contest. Even if a policy had mentioned research, meaningful consent would have been hard to give. A subscriber could not have known that a few ratings, combined with a public site like IMDb, might single them out, because that kind of attack was not well understood when the data were released. Leetaru's examples suggest this has happened repeatedly (Leetaru, 2016). It is difficult to agree to a risk that no one has yet discovered.
+
+**Is the data being used in ways the original collection never intended?**
+
+Yes, and in more than one way. The ratings were created so that Netflix could recommend movies to the person who made them. Netflix then turned them into a public research benchmark, and the re-identification work turned them into a demonstration of a privacy attack. An early version of Narayanan and Shmatikov's paper also raises a more pointed possibility: a contestant could look up someone's public IMDb ratings, find the matching Netflix record, and use that person's known ratings to predict the rest more accurately (Narayanan & Shmatikov, 2008). The data were meant to help competitors improve an algorithm, yet the way they were released also made it possible to connect real identities to private viewing habits.
+
+**What was the permission structure, and were the data made public?**
+
+The data were released publicly so that anyone entering the contest could use them, with the goal of attracting the best ideas for Netflix's recommendation system (Narayanan & Shmatikov, 2008). Permission came from Netflix, the holder of the data, and not from the people the data described. A public release is also difficult to reverse, since copies cannot be recalled once they are out. Leetaru makes a related observation, that organizations continue to release sensitive datasets as though anonymization settles the matter, when the record suggests otherwise (Leetaru, 2016).
+
+## Why it matters
+
+Netflix benefited the most. A public contest was an inexpensive way to put thousands of researchers to work on a core business problem, and a $1 million prize likely cost far less than hiring comparable talent. Researchers benefited too, since they gained access to a large and realistic dataset. For comparison, Narayanan and Shmatikov note that the widely used MovieLens data contained only about 6,000 records (Narayanan & Shmatikov, 2008).
+
+The subscribers were the ones left exposed. They supplied the data, had little say over how it was shared, and carried the risk. Viewing and rating histories can say a great deal about a person, and Narayanan and Shmatikov specifically mention political preferences and other sensitive information (Narayanan & Shmatikov, 2008). The people with the most to lose from this sort of exposure are those whose private preferences could be used against them, which is a familiar concern in discussions of surveillance and minoritized groups. My sources do not document harm to any particular individual, so I raise this as a risk and not as an established outcome.
+
+The *Data Feminism* questions in the assignment ask who benefits, who is harmed, and whose priorities become products. Profit is the clearest motive here, because Netflix wanted a better product and cheaper research. I would not describe the release as deliberate surveillance, since nothing in my sources suggests Netflix meant to expose anyone. The case does reveal a gap in power, though. Netflix decided how the data would be released and what "anonymous" would mean, the people in the data were never consulted, and it took outside researchers to show what was at stake. Leetaru argues that the data science community needs to spend more time thinking about how to release data safely (Leetaru, 2016). Netflix is a good illustration of why: the party holding the data held the power, and the people the data described bore the cost of a flawed design.
+
+## References
+
+Leetaru, K. (2016, August 24). The big data era of mosaicked deidentification: Can we anonymize data anymore? *Forbes*. https://www.forbes.com/sites/kalevleetaru/2016/08/24/the-big-data-era-of-mosaicked-deidentification-can-we-anonymize-data-anymore/
+
+Narayanan, A., & Shmatikov, V. (2008). Robust de-anonymization of large sparse datasets. In *2008 IEEE Symposium on Security and Privacy* (pp. 111-125). IEEE. https://arxiv.org/abs/cs/0610105
